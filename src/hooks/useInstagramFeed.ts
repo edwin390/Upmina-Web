@@ -1,0 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
+import type { InstagramMediaItem } from "@/types";
+
+async function fetchInstagramFeed(): Promise<InstagramMediaItem[]> {
+  const res = await fetch("/api/instagram-feed");
+  if (!res.ok) throw new Error("No se pudo obtener el feed de Instagram");
+  return res.json();
+}
+
+export function useInstagramFeed() {
+  return useQuery({
+    queryKey: ["instagram", "feed"],
+    queryFn: fetchInstagramFeed,
+    staleTime: 60 * 60_000,
+  });
+}
