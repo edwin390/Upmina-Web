@@ -1,11 +1,5 @@
 {
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
-  ],
-  "crons": [
-    {
-      "path": "/api/instagram-refresh-token",
-      "schedule": "0 4 */55 * *"
-    }
   ]
 }
