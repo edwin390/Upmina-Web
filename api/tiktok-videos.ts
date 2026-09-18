@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { TikTokApiVideo } from "./types.js";
+import type { TikTokApiVideo } from "../src/types/api.js";
 
 // El access token de TikTok caduca cada 24h; se asume renovado por un cron
 // job separado que actualiza TIKTOK_ACCESS_TOKEN vía refresh token.

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { TwitchStream, TwitchTokenResponse } from "./types.js";
+import type { TwitchStream, TwitchTokenResponse } from "../src/types/api.js";
 
 const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID!;
 const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET!;

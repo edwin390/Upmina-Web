@@ -4,7 +4,7 @@ import type {
   YouTubeChannelResponse,
   YouTubePlaylistResponse,
   YouTubeVideosResponse,
-} from "./types.js";
+} from "../src/types/api.js";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY!;
 const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID!;

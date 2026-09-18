@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { InstagramApiItem } from "./types.js";
+import type { InstagramApiItem } from "../src/types/api.js";
 
 const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN!;
 const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID!;
