@@ -1,4 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type {
+  TwitchClipApiItem,
+  TwitchTokenResponse,
+  TwitchUser,
+} from "./types";
 
 const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID!;
 const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET!;
@@ -23,7 +28,7 @@ async function getAppAccessToken(): Promise<string> {
   });
 
   if (!res.ok) throw new Error("No se pudo autenticar con Twitch");
-  const data = await res.json();
+  const data = (await res.json()) as TwitchTokenResponse;
 
   cachedToken = {
     token: data.access_token,
@@ -45,8 +50,8 @@ async function getBroadcasterId(token: string): Promise<string> {
     },
   );
   if (!res.ok) throw new Error("No se pudo resolver el canal de Twitch");
-  const { data } = await res.json();
-  cachedBroadcasterId = data?.[0]?.id;
+  const { data } = (await res.json()) as { data?: TwitchUser[] };
+  cachedBroadcasterId = data?.[0]?.id ?? null;
   if (!cachedBroadcasterId) throw new Error("Canal de Twitch no encontrado");
   return cachedBroadcasterId;
 }
@@ -67,10 +72,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
     if (!clipsRes.ok) throw new Error(`Twitch respondió ${clipsRes.status}`);
 
-    const { data } = await clipsRes.json();
+    const { data } = (await clipsRes.json()) as { data?: TwitchClipApiItem[] };
     const parent = req.headers.host ?? "localhost";
 
-    const clips = (data ?? []).map((clip: any) => ({
+    const clips = (data ?? []).map((clip) => ({
       id: clip.id,
       title: clip.title,
       embedUrl: `https://clips.twitch.tv/embed?clip=${clip.id}&parent=${parent}`,

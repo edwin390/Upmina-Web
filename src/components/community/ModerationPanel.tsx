@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Edit } from "@/types";
+import type { Edit, EditRow } from "@/types";
 import { formatRelativeDate } from "@/lib/format";
 
 export default function ModerationPanel() {
@@ -9,6 +9,11 @@ export default function ModerationPanel() {
   const [note, setNote] = useState<Record<string, string>>({});
 
   const load = useCallback(async () => {
+    if (!supabase) {
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     const { data, error } = await supabase
       .from("edits")
@@ -18,7 +23,7 @@ export default function ModerationPanel() {
 
     if (!error && data) {
       setPending(
-        data.map((row: any) => ({
+        data.map((row: EditRow) => ({
           id: row.id,
           authorId: row.author_id,
           title: row.title,
@@ -40,6 +45,8 @@ export default function ModerationPanel() {
   }, [load]);
 
   async function resolve(editId: string, status: "approved" | "rejected") {
+    if (!supabase) return;
+
     await supabase
       .from("edits")
       .update({ status, moderation_note: note[editId] ?? null })

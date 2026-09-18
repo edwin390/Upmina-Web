@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Edit } from "@/types";
+import type { Edit, EditRow } from "@/types";
 import EditCard from "./EditCard";
 
 type SortMode = "recent" | "top";
@@ -11,6 +11,11 @@ export default function EditsFeed() {
   const [isLoading, setIsLoading] = useState(true);
 
   const loadEdits = useCallback(async () => {
+    if (!supabase) {
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     let query = supabase
       .from("edits")
@@ -24,7 +29,7 @@ export default function EditsFeed() {
 
     const { data, error } = await query;
     if (!error && data) {
-      const withScore: Edit[] = data.map((row: any) => ({
+      const withScore: Edit[] = data.map((row: EditRow) => ({
         id: row.id,
         authorId: row.author_id,
         title: row.title,
@@ -54,6 +59,8 @@ export default function EditsFeed() {
   }, [loadEdits]);
 
   async function handleVote(editId: string, value: 1 | -1) {
+    if (!supabase) return;
+
     const {
       data: { user },
     } = await supabase.auth.getUser();

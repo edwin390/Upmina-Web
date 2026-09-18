@@ -7,6 +7,8 @@ export default function CommunitySection() {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!supabase) return;
+
     supabase.auth.getUser().then(({ data }) => {
       setUserId(data.user?.id ?? null);
     });

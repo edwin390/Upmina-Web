@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { TikTokApiVideo } from "./types";
 
 // El access token de TikTok caduca cada 24h; se asume renovado por un cron
 // job separado que actualiza TIKTOK_ACCESS_TOKEN vía refresh token.
@@ -20,9 +21,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!listRes.ok) throw new Error(`TikTok respondió ${listRes.status}`);
 
-    const { data } = await listRes.json();
+    const { videos } = (await listRes.json()) as { videos?: TikTokApiVideo[] };
 
-    const videos = (data?.videos ?? []).map((video: any) => ({
+    const mappedVideos = (videos ?? []).map((video) => ({
       id: video.id,
       title: video.title,
       embedUrl: video.share_url,
@@ -31,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }));
 
     res.setHeader("Cache-Control", "s-maxage=1800, stale-while-revalidate=3600");
-    return res.status(200).json(videos);
+    return res.status(200).json(mappedVideos);
   } catch (err) {
     console.error("[tiktok-videos]", err);
     return res.status(502).json({ error: "No se pudieron obtener los videos de TikTok" });

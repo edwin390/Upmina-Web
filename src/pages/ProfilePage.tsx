@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import type { Edit, Profile } from "@/types";
+import type { Edit, EditRow, Profile } from "@/types";
 import EditCard from "@/components/community/EditCard";
 
 export default function ProfilePage() {
@@ -15,6 +15,11 @@ export default function ProfilePage() {
 
     async function load() {
       setIsLoading(true);
+      if (!supabase) {
+        setIsLoading(false);
+        return;
+      }
+
       const { data: profileRow } = await supabase
         .from("profiles")
         .select("*")
@@ -41,7 +46,7 @@ export default function ProfilePage() {
 
         if (editRows) {
           setEdits(
-            editRows.map((row: any) => ({
+            editRows.map((row: EditRow) => ({
               id: row.id,
               authorId: row.author_id,
               title: row.title,

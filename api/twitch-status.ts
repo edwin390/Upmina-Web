@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { TwitchStream, TwitchTokenResponse } from "./types";
 
 const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID!;
 const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET!;
@@ -22,7 +23,7 @@ async function getAppAccessToken(): Promise<string> {
   });
 
   if (!res.ok) throw new Error("No se pudo autenticar con Twitch");
-  const data = await res.json();
+  const data = (await res.json()) as TwitchTokenResponse;
 
   cachedToken = {
     token: data.access_token,
@@ -49,7 +50,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Twitch respondió ${streamRes.status}`);
     }
 
-    const { data } = await streamRes.json();
+    const { data } = (await streamRes.json()) as { data?: TwitchStream[] };
     const stream = data?.[0];
 
     res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=60");

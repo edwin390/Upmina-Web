@@ -1,8 +1,9 @@
 const SOCIAL_LINKS = [
   { href: "https://twitch.tv/upminaa", label: "Twitch" },
-  { href: "https://youtube.com", label: "YouTube" },
-  { href: "https://instagram.com", label: "Instagram" },
-  { href: "https://tiktok.com", label: "TikTok" },
+  { href: "https://www.youtube.com/@upminaa", label: "YouTube" },
+  { href: "https://www.instagram.com/upminaa/?hl=es", label: "Instagram" },
+  { href: "https://www.tiktok.com/@upminaa.cos?lang=es", label: "TikTok" },
+  { href: "https://www.reddit.com/user/upminaa/", label: "Reddit" },
 ];
 
 export default function Footer() {

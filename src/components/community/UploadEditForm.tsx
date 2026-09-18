@@ -35,6 +35,10 @@ export default function UploadEditForm({ authorId, onUploaded }: UploadEditFormP
 
     setIsSubmitting(true);
     try {
+      if (!supabase) {
+        throw new Error("La comunidad no está configurada todavía.");
+      }
+
       const path = `${authorId}/${crypto.randomUUID()}-${file.name}`;
       const { error: uploadError } = await supabase.storage
         .from("edits")

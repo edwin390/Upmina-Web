@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { InstagramApiItem } from "./types";
 
 const INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN!;
 const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID!;
@@ -12,9 +13,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!mediaRes.ok) throw new Error(`Instagram respondió ${mediaRes.status}`);
 
-    const { data } = await mediaRes.json();
+    const { data } = (await mediaRes.json()) as { data?: InstagramApiItem[] };
 
-    const items = (data ?? []).map((item: any) => ({
+    const items = (data ?? []).map((item) => ({
       id: item.id,
       mediaType: item.media_type,
       mediaUrl: item.media_url,

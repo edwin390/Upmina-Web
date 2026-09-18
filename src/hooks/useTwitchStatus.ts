@@ -1,7 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import type { TwitchStatus } from "@/types";
+import { isDemoMode } from "@/lib/runtime";
 
 async function fetchTwitchStatus(): Promise<TwitchStatus> {
+  if (isDemoMode) return { isLive: false };
+
   const res = await fetch("/api/twitch-status");
   if (!res.ok) throw new Error("No se pudo obtener el estado de Twitch");
   return res.json();

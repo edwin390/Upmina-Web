@@ -73,6 +73,20 @@ export interface Edit {
   voteScore?: number;
 }
 
+export interface EditRow {
+  id: string;
+  author_id: string;
+  title: string;
+  description: string | null;
+  video_path: string;
+  thumbnail_path: string | null;
+  status: EditStatus;
+  moderation_note?: string | null;
+  created_at: string;
+  updated_at: string;
+  votes?: Array<{ value: number }>;
+}
+
 export interface Vote {
   userId: string;
   editId: string;
