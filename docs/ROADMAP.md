@@ -50,6 +50,9 @@ Plan por fases desde el setup hasta el lanzamiento público.
 - [ ] Distinguir visualmente reels vs fotos
 - [ ] Configurar cron de renovación de token
 
+> Nota: cuando se implemente `api/instagram-refresh-token.ts`, volver a añadir
+> el bloque `crons` correspondiente en `vercel.json`.
+
 **Entregable:** Grid de Instagram con contenido reciente.
 
 ---
