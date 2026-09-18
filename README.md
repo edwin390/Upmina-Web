@@ -20,6 +20,13 @@ creadora. Ofrece a su comunidad un punto de encuentro donde pueden:
 
 Estética **goth/alt/neón** fiel a la identidad visual de la marca.
 
+### Enlaces oficiales
+
+- [YouTube](https://www.youtube.com/@upminaa)
+- [Instagram](https://www.instagram.com/upminaa/?hl=es)
+- [TikTok](https://www.tiktok.com/@upminaa.cos?lang=es)
+- [Reddit](https://www.reddit.com/user/upminaa/)
+
 ---
 
 ## ✨ Características

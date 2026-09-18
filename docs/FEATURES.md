@@ -86,6 +86,17 @@ Mostrar los videos más recientes de TikTok.
 
 ---
 
+## Enlaces sociales
+
+El Footer enlaza a los perfiles oficiales externos de UPMINA:
+
+- [YouTube](https://www.youtube.com/@upminaa)
+- [Instagram](https://www.instagram.com/upminaa/?hl=es)
+- [TikTok](https://www.tiktok.com/@upminaa.cos?lang=es)
+- [Reddit](https://www.reddit.com/user/upminaa/)
+
+---
+
 ## 5. Módulo: YouTube
 
 ### 🎯 Objetivo

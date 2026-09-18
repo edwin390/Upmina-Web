@@ -109,6 +109,11 @@ de cuota de 10,000 uds/día a un valor insignificante.
 **Por qué el proxy:** el access token caduca en 24h y se renueva con refresh
 token desde el backend.
 
+### Enlaces sociales
+
+Los enlaces a YouTube, Instagram, TikTok y Reddit son enlaces externos
+estáticos renderizados en el Footer. No requieren integración API ni secretos.
+
 ---
 
 ## 🗄️ Esquema de base de datos (Supabase)
