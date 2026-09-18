@@ -59,7 +59,7 @@ Estética **goth/alt/neón** fiel a la identidad visual de la marca.
 ## 🚀 Instalación local
 
 ```bash
-git clone https://github.com/tu-usuario/upmina-web.git
+git clone https://github.com/edwin390/upmina-web.git
 cd upmina-web
 npm install
 cp .env.example .env
@@ -98,6 +98,9 @@ TIKTOK_ACCESS_TOKEN=tu_access_token
 VITE_SUPABASE_URL=https://xxx.supabase.co
 VITE_SUPABASE_ANON_KEY=tu_anon_key
 SUPABASE_SERVICE_ROLE_KEY=tu_service_role_key
+
+# App: true fuerza datos mock en Twitch/YouTube/Instagram/TikTok sin llamar a sus APIs reales
+VITE_DEMO_MODE=false
 ```
 
 ⚠️ Nunca subas el archivo `.env` al repositorio.
@@ -182,5 +185,5 @@ MIT License. Consulta `LICENSE`.
 
 ## 👤 Autor
 
-Proyecto desarrollado por [Tu Nombre].
-Contacto: tu@email.com
+Proyecto desarrollado por Edwin Santiago Ramos Andrade.
+Contacto: er179822@gmail.com
