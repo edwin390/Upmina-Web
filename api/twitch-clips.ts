@@ -1,9 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type {
-  TwitchClipApiItem,
-  TwitchTokenResponse,
-  TwitchUser,
-} from "./types";
+import type { TwitchClipApiItem, TwitchTokenResponse, TwitchUser } from "./types.js";
 
 const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID!;
 const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET!;
@@ -40,15 +36,12 @@ async function getAppAccessToken(): Promise<string> {
 async function getBroadcasterId(token: string): Promise<string> {
   if (cachedBroadcasterId) return cachedBroadcasterId;
 
-  const res = await fetch(
-    `https://api.twitch.tv/helix/users?login=${TWITCH_CHANNEL}`,
-    {
-      headers: {
-        "Client-Id": TWITCH_CLIENT_ID,
-        Authorization: `Bearer ${token}`,
-      },
+  const res = await fetch(`https://api.twitch.tv/helix/users?login=${TWITCH_CHANNEL}`, {
+    headers: {
+      "Client-Id": TWITCH_CLIENT_ID,
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
   if (!res.ok) throw new Error("No se pudo resolver el canal de Twitch");
   const { data } = (await res.json()) as { data?: TwitchUser[] };
   cachedBroadcasterId = data?.[0]?.id ?? null;

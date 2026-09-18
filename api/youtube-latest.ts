@@ -1,10 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { parseIsoDuration } from "../src/lib/format";
+import { parseIsoDuration } from "../src/lib/format.js";
 import type {
   YouTubeChannelResponse,
   YouTubePlaylistResponse,
   YouTubeVideosResponse,
-} from "./types";
+} from "./types.js";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY!;
 const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID!;
@@ -48,6 +48,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   } catch (err) {
     console.error("[youtube-latest]", err);
-    return res.status(502).json({ error: "No se pudo obtener el último video de YouTube" });
+    return res
+      .status(502)
+      .json({ error: "No se pudo obtener el último video de YouTube" });
   }
 }

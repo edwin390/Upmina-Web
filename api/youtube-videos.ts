@@ -1,10 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { parseIsoDuration } from "../src/lib/format";
+import { parseIsoDuration } from "../src/lib/format.js";
 import type {
   YouTubeChannelResponse,
   YouTubePlaylistResponse,
   YouTubeVideosResponse,
-} from "./types";
+} from "./types.js";
 
 const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY!;
 const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID!;
@@ -29,9 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const itemsData = (await itemsRes.json()) as YouTubePlaylistResponse;
     const items = itemsData.items ?? [];
 
-    const videoIds = items
-      .map((item) => item.snippet.resourceId.videoId)
-      .join(",");
+    const videoIds = items.map((item) => item.snippet.resourceId.videoId).join(",");
 
     const videosRes = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds}&key=${YOUTUBE_API_KEY}`,
@@ -58,6 +56,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json(videos);
   } catch (err) {
     console.error("[youtube-videos]", err);
-    return res.status(502).json({ error: "No se pudieron obtener los videos de YouTube" });
+    return res
+      .status(502)
+      .json({ error: "No se pudieron obtener los videos de YouTube" });
   }
 }
